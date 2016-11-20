@@ -207,14 +207,6 @@ class ZooPractice {
 			ctr++;
 
 		}
-
-		// Animal lion  = new LandAnimal("Lion");	
-		// Animal tiger = new LandAnimal("Tiger");	
-		// Animal fish  = new AquaticAnimal("Shark");
-		// Animal frog  = new AmphibiousAnimal("Frog");
-		// zoo.addAnimal(tiger);
-		// zoo.addAnimal(fish);
-		// zoo.addAnimal(frog);
 		zoo.payEntranceFees();
 		System.out.println(zoo.displayAnimals());
 	}
