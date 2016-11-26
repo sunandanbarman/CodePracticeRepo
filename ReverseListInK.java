@@ -31,6 +31,8 @@ public class ReverseListInK {
         }
         return new Entry(prev,begin, nextNode);
     }
+
+
     public static ListNode reverseBetween(ListNode head, int m, int n) {
         if(head == null) {
             return null;
@@ -61,6 +63,46 @@ public class ReverseListInK {
         }
         return head;
     }
+    private static Entry reverse(ListNode start,ListNode end ) {
+        ListNode begin = start, prev = null, curr  = start, nextNode= null;
+        ListNode endNode = end.next;
+        while(curr != endNode) {
+            nextNode = curr.next;
+            curr.next= prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        return new Entry(prev,begin,nextNode);
+    }
+
+    public static ListNode reverseKGroup(ListNode head, int k) {
+       if (head== null || k <= 0 ) {
+           return null;
+       }   
+       ListNode start = head, end , prev = null;
+       while(start != null) {
+           end = start;
+           for(int i=1; i < k ; i++) {
+               end = end.next;
+               if(end == null) {
+                   break;
+               }
+           }
+           if(end == null) {
+               break;
+           }
+           Entry e = reverse(start,end);
+           if(prev == null) {
+               head = e.first;
+           } else {
+               prev.next = e.first;
+           }
+           e.last.next = e.nextNode;
+           start = e.last.next;
+           prev  = e.last;
+       }
+       return head;
+    }    
 	public static void main(String[] args) {
 		ListNode head = new ListNode(1);
 		ListNode x = new ListNode(2);
@@ -71,8 +113,9 @@ public class ReverseListInK {
 		head.next.next.next = x;
 		x = new ListNode(5);
 		head.next.next.next.next = x;
+		head.next.next.next.next.next = new ListNode(6);
 
-		ListNode root = reverseBetween(head,1,1);
+		ListNode root = reverseKGroup(head,7);
 		x = root;
 		while(x != null) {
 			System.out.println(x.val);
